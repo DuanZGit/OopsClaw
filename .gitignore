@@ -1,0 +1,21 @@
+# 忽略文件
+*.log
+*.bak
+*.backup
+*.json.bak
+openclaw.json
+feishu_user_id.txt
+credentials/
+secrets/
+.env
+*.db
+*.lock
+
+# 忽略目录
+logs/
+knowledge/learned/
+knowledge/analysis_*.json
+scores/
+evolutions/
+fixes/
+.DS_Store

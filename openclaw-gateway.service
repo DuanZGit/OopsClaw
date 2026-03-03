@@ -1,0 +1,24 @@
+[Unit]
+Description=OpenClaw Gateway (v2026.2.26)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/node /home/duanz/.npm-global/lib/node_modules/openclaw/dist/index.js gateway --port 18789
+Restart=always
+RestartSec=5
+KillMode=process
+Environment=HOME=/home/duanz
+Environment=TMPDIR=/tmp
+Environment=PATH=/home/duanz/.local/bin:/home/duanz/.npm-global/bin:/home/duanz/bin:/home/duanz/.volta/bin:/home/duanz/.asdf/shims:/home/duanz/.bun/bin:/home/duanz/.nvm/current/bin:/home/duanz/.fnm/current/bin:/home/duanz/.local/share/pnpm:/usr/local/bin:/usr/bin:/bin
+Environment=NO_PROXY=.ts.net,100.64.0.0/10,100.0.0.0/8
+Environment=JINA_API_KEY=jina_7c3bb9343a244006bec9ec1f2397303ceKV9avu-nMM5RpBInoA_xHdbcH-z
+Environment=OPENCLAW_GATEWAY_PORT=18789
+Environment=OPENCLAW_GATEWAY_TOKEN=ce8986c766abf0ccaf2640caaf6971ea303b37767fb16876
+Environment=OPENCLAW_SYSTEMD_UNIT=openclaw-gateway.service
+Environment=OPENCLAW_SERVICE_MARKER=openclaw
+Environment=OPENCLAW_SERVICE_KIND=gateway
+Environment=OPENCLAW_SERVICE_VERSION=2026.2.26
+
+[Install]
+WantedBy=default.target

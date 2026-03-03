@@ -1,0 +1,41 @@
+# iFlow Guardian 故障指纹库
+# 格式: 错误关键词 | 故障类型 | 修复策略
+
+# 配置错误类
+MissingEnvVarError | 环境变量缺失 | 检查并添加到 systemd service
+JSON parse error | JSON 解析错误 | 检查配置文件语法
+ConfigError | 配置错误 | 恢复备份配置文件
+
+# 依赖错误类
+ModuleNotFound | 模块缺失 | 安装缺失的模块
+Cannot find module | 模块缺失 | npm install / pnpm install
+
+# 网络错误类
+ECONNREFUSED | 连接被拒绝 | 检查端口和服务状态
+ETIMEDOUT | 连接超时 | 检查网络和 API 可用性
+401 | 认证失败 | 检查 API Key
+403 | 权限不足 | 检查 API Key 权限
+
+# 进程错误类
+EADDRINUSE | 端口占用 | kill 占用端口的进程
+SIGKILL | 进程被杀死 | 检查内存和崩溃原因
+OOM | 内存不足 | 增加内存或优化配置
+
+# OpenClaw 特定错误
+openclaw not found | 命令未找到 | 重新安装 openclaw
+gateway.*error | Gateway 错误 | 重启 gateway 服务
+
+# 自动进化 - 2026-02-28
+测试 | 测试消息 | 忽略或确认是否为人工测试
+
+# 自动进化 - 2026-02-28
+test | 测试消息 | 忽略或确认是否为人工测试
+
+# 自动进化 - 2026-02-28
+这是一条测试消息 | 测试消息 | 忽略
+
+# 自动进化 - 2026-03-01
+OnFailure.*user.*service | systemd user service 配置错误 | 移除 OnFailure 指令（user service 不支持）
+
+# 自动进化 - 2026-03-01
+Unknown key.*OnFailure | systemd 配置语法错误 | 检查 service 文件格式，user service 不支持 OnFailure
