@@ -8,7 +8,7 @@
 set -e
 
 # 配置
-GUARDIAN_DIR="$HOME/.iflow/guardian"
+GUARDIAN_DIR="$HOME/.oopsclaw"
 EVOLUTIONS_DIR="$GUARDIAN_DIR/evolutions"
 LOG_DIR="$GUARDIAN_DIR/evolutions/logs"
 LEARNED_DIR="$GUARDIAN_DIR/knowledge/learned"

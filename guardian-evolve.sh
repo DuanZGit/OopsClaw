@@ -6,7 +6,7 @@
 
 set -euo pipefail
 
-GUARDIAN_DIR="$HOME/.iflow/guardian"
+GUARDIAN_DIR="$HOME/.oopsclaw"
 LOG_DIR="$GUARDIAN_DIR/logs"
 KNOWLEDGE_DIR="$GUARDIAN_DIR/knowledge"
 PROMPT_FILE="$HOME/.iflow/agents/guardian.md"

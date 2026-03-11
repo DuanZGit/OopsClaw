@@ -17,7 +17,7 @@ from datetime import datetime
 from typing import Dict, List, Optional
 
 # 路径配置
-GUARDIAN_DIR = os.path.expanduser("~/.iflow/guardian")
+GUARDIAN_DIR = os.path.expanduser("~/.oopsclaw")
 EVOLUTIONS_DIR = f"{GUARDIAN_DIR}/evolutions"
 SCORES_DIR = f"{GUARDIAN_DIR}/scores"
 LEARNED_DIR = f"{GUARDIAN_DIR}/knowledge/learned"
@@ -219,7 +219,7 @@ import json
 import sys
 import os
 
-GUARDIAN_DIR = os.path.expanduser("~/.iflow/guardian")
+GUARDIAN_DIR = os.path.expanduser("~/.oopsclaw")
 IFLOW_CONFIG = os.path.expanduser("~/.iflow/settings.json")
 
 def get_iflow_config():

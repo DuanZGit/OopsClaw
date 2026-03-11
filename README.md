@@ -113,7 +113,7 @@ bash ~/.oopsclaw/guardian-evolve.sh
 journalctl --user -u guardian-event.service -f
 
 # 或查看脚本内日志
-tail -f ~/.iflow/guardian/logs/guardian-event.log
+tail -f ~/.oopsclaw/logs/guardian-event.log
 ```
 
 ## 🤖 Agent Prompt

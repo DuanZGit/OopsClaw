@@ -7,7 +7,7 @@
 3. 保存到文件:
 
 ```bash
-echo "https://open.feishu.cn/open-apis/bot/v2/hook/xxx" > ~/.iflow/guardian/feishu_webhook.txt
+echo "https://open.feishu.cn/open-apis/bot/v2/hook/xxx" > ~/.oopsclaw/feishu_webhook.txt
 ```
 
 ## 通知类型

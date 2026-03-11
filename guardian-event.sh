@@ -8,13 +8,13 @@
 set -euo pipefail
 
 # 配置
-GUARDIAN_DIR="$HOME/.iflow/guardian"
+GUARDIAN_DIR="$HOME/.oopsclaw"
 LOG_DIR="$GUARDIAN_DIR/logs"
 KNOWLEDGE_DIR="$GUARDIAN_DIR/knowledge"
 OPENCLAW_CONFIG="$HOME/.openclaw/openclaw.json"
 GATEWAY_PORT=18789
 SERVICE_NAME="openclaw-gateway.service"
-FEISHU_USER_ID_FILE="$GUARDIAN_DIR/feishu_user_id.txt"
+FEISHU_USER_ID_FILE="$HOME/.oopsclaw/feishu_user_id.txt"
 
 # 超时配置
 IFLOW_TIMEOUT=300
