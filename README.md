@@ -1,6 +1,6 @@
-# oopsclaw - 智能守护者系统
+# OopsClaw - OpenClaw 智能守护者
 
-> OpenClaw/iFlow 的智能故障修复与自主进化系统
+> OpenClaw/iFlow 的自动故障修复与自主进化系统
 
 ## 🌟 特性
 
@@ -8,57 +8,57 @@
 - **AI 驱动**: 使用 LLM 分析日志、推理根因、执行修复
 - **知识积累**: 故障指纹库 + 历史经验，持续学习优化
 - **自主进化**: 评估修复效果，自动优化 Agent Prompt
-- **多渠道通知**: 支持飞书等渠道实时推送告警
+- **多渠道通知**: 飞书实时推送告警
 
 ## 🏗️ 架构
 
 ```
 ┌─────────────────────────────────────────────────────────┐
 │                    故障检测层                             │
-│  systemd OnFailure / timer / cron                       │
+│              systemd OnFailure (Gateway 故障时触发)       │
 └─────────────────┬───────────────────────────────────────┘
                   │
                   ▼
 ┌─────────────────────────────────────────────────────────┐
-│                守护者核心 (guardian-event.sh)             │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
-│  │  故障诊断   │→ │  根因分析   │→ │  自动修复   │     │
-│  └─────────────┘  └─────────────┘  └─────────────┘     │
+│                守护者核心 (guardian-event.sh)            │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+│  │  故障诊断   │→ │  根因分析   │→ │  自动修复   │    │
+│  └─────────────┘  └─────────────┘  └─────────────┘    │
 └─────────────────┬───────────────────────────────────────┘
                   │
                   ▼
 ┌─────────────────────────────────────────────────────────┐
 │                  知识库系统                              │
-│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐     │
-│  │ 故障指纹库  │  │  经验文档   │  │  评分数据   │     │
-│  └─────────────┘  └─────────────┘  └─────────────┘     │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
+│  │ 故障指纹库  │  │  经验文档   │  │  评分数据   │    │
+│  └─────────────┘  └─────────────┘  └─────────────┘    │
 └─────────────────┬───────────────────────────────────────┘
                   │
                   ▼
 ┌─────────────────────────────────────────────────────────┐
-│              进化优化层 (guardian-evolve.sh)             │
-│  评估修复效果 → 优化 Prompt → 自我进化                  │
+│              进化优化层 (guardian-evolve.sh)            │
+│  评估修复效果 → 优化 Prompt → 自我进化                 │
 └─────────────────────────────────────────────────────────┘
 ```
 
 ## 📁 目录结构
 
 ```
-guardian/
+.oopsclaw/
 ├── guardian-event.sh      # 事件驱动修复脚本 (核心)
-├── guardian-evolve.sh     # 自主进化优化脚本
+├── guardian-evolve.sh    # 自主进化优化脚本
 ├── monitor.sh            # 定时监控脚本
 ├── ai-evolve.sh          # AI 进化脚本
-├── knowledge/            # 知识库
-│   ├── base/
-│   │   ├── fingerprints.txt   # 故障指纹库
-│   │   └── troubleshooting.md # 故障排查手册
-│   └── learned/          # 历史经验文档
-├── fixes/               # 修复方案库
-├── evolutions/          # 进化版本
-├── scores/              # 评分数据
-├── logs/                # 运行日志
-└── openclaw-gateway.service  # systemd 服务配置
+├── install.sh            # 一键安装脚本
+├── openclaw-gateway.service  # Gateway 服务配置
+├── guardian-event.service    # 故障修复服务
+├── guardian-monitor.service # 定时监控服务
+├── guardian-monitor.timer    # 定时器
+└── knowledge/             # 知识库
+    ├── base/
+    │   ├── fingerprints.txt   # 故障指纹库
+    │   └── troubleshooting.md # 故障排查手册
+    └── learned/          # 历史经验文档
 ```
 
 ## 🚀 快速开始
@@ -72,59 +72,56 @@ guardian/
 ### 安装
 
 ```bash
+# 一键安装
+bash ~/.oopsclaw/install.sh
+```
+
+或手动安装：
+
+```bash
 # 1. 复制服务配置
-cp guardian/openclaw-gateway.service ~/.config/systemd/user/
-cp guardian/guardian-monitor.service ~/.config/systemd/user/
-cp guardian/guardian-monitor.timer ~/.config/systemd/user/
+cp openclaw-gateway.service ~/.config/systemd/user/
+cp guardian-event.service ~/.config/systemd/user/
+cp guardian-monitor.service ~/.config/systemd/user/
+cp guardian-monitor.timer ~/.config/systemd/user/
 
 # 2. 重新加载 systemd
 systemctl --user daemon-reload
 
-# 3. 启用定时任务
-systemctl --user enable --now guardian-monitor.timer
-
-# 4. 启用故障触发 (可选)
+# 3. 启用服务
 systemctl --user enable --now openclaw-gateway.service
+systemctl --user enable --now guardian-monitor.timer
 ```
 
-### 配置
-
-```bash
-# 设置飞书通知用户 ID (可选)
-echo "ou_xxxxx" > ~/.iflow/guardian/feishu_user_id.txt
-```
-
-## 🔧 使用
-
-### 手动运行守护者
+### 手动运行
 
 ```bash
 # 事件驱动模式 (Gateway 故障时自动触发)
-bash ~/.iflow/guardian/guardian-event.sh
+bash ~/.oopsclaw/guardian-event.sh
 
 # 定时监控模式
-bash ~/.iflow/guardian/monitor.sh
+bash ~/.oopsclaw/monitor.sh
 
 # 进化优化 (评估并优化 Agent)
-bash ~/.iflow/guardian/guardian-evolve.sh
+bash ~/.oopsclaw/guardian-evolve.sh
 ```
 
 ### 查看日志
 
 ```bash
 # 守护者事件日志
-tail -f ~/.iflow/guardian/logs/guardian-event.log
+journalctl --user -u guardian-event.service -f
 
-# 修复历史
-cat ~/.iflow/guardian/logs/repair_history.log
+# 或查看脚本内日志
+tail -f ~/.iflow/guardian/logs/guardian-event.log
 ```
 
 ## 🤖 Agent Prompt
 
 守护者使用专门的 Agent Prompt 进行故障分析：
 
-- **guardian.md**: 故障诊断与修复专家
-- **guardian-evolve.md**: 进化优化评估专家
+- **guardian**: 故障诊断与修复专家
+- **guardian-evolve**: 进化优化评估专家
 
 详见 `~/.iflow/agents/guardian.md`
 
@@ -139,8 +136,8 @@ cat ~/.iflow/guardian/logs/repair_history.log
 
 ## 🔄 进化流程
 
-1. **检测**: 定时/事件触发故障检测
-2. **修复**: guardian-agent 执行修复
+1. **检测**: systemd OnFailure 触发故障检测
+2. **修复**: iFlow guardian-agent 执行修复
 3. **评估**: 记录修复结果和时间
 4. **进化**: guardian-evolve-agent 评估并优化
 5. **学习**: 更新知识库和 Prompt
