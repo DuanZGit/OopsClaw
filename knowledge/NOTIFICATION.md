@@ -1,4 +1,4 @@
-# iFlow Guardian 飞书通知配置
+# iFlow Oopsclaw 飞书通知配置
 
 ## 启用飞书通知
 

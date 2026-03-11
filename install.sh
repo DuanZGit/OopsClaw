@@ -74,8 +74,8 @@ copy_files() {
     SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
     
     # 复制守护者脚本
-    cp -f "$SCRIPT_DIR/guardian-event.sh" ~/.oopsclaw/
-    cp -f "$SCRIPT_DIR/guardian-evolve.sh" ~/.oopsclaw/
+    cp -f "$SCRIPT_DIR/oopsclaw-event.sh" ~/.oopsclaw/
+    cp -f "$SCRIPT_DIR/oopsclaw-evolve.sh" ~/.oopsclaw/
     cp -f "$SCRIPT_DIR/monitor.sh" ~/.oopsclaw/
     cp -f "$SCRIPT_DIR/ai-evolve.sh" ~/.oopsclaw/
     
@@ -85,7 +85,7 @@ copy_files() {
     # 复制 systemd 服务
     mkdir -p ~/.config/systemd/user
     cp -f "$SCRIPT_DIR/openclaw-gateway.service" ~/.config/systemd/user/
-    cp -f "$SCRIPT_DIR/guardian-event.service" ~/.config/systemd/user/
+    cp -f "$SCRIPT_DIR/oopsclaw-event.service" ~/.config/systemd/user/
     
     echo -e "${GREEN}✓${NC} 文件已复制"
 }
@@ -101,7 +101,7 @@ setup_services() {
     mkdir -p ~/.config/systemd/user/openclaw-gateway.service.d
     cat > ~/.config/systemd/user/openclaw-gateway.service.d/auto-fix.conf << 'EOF'
 [Unit]
-OnFailure=guardian-event.service
+OnFailure=oopsclaw-event.service
 StartLimitIntervalSec=60
 StartLimitBurst=5
 
@@ -130,8 +130,8 @@ main() {
     echo ""
     echo "📖 使用说明:"
     echo "  • 故障自动修复: OnFailure 机制 (Gateway 失败时自动触发)"
-    echo "  • 手动运行守护者: bash ~/.oopsclaw/guardian-event.sh"
-    echo "  • 查看日志: journalctl --user -u guardian-event.service -f"
+    echo "  • 手动运行守护者: bash ~/.oopsclaw/oopsclaw-event.sh"
+    echo "  • 查看日志: journalctl --user -u oopsclaw-event.service -f"
     echo ""
     echo "📁 文件位置: ~/.oopsclaw/"
     echo "📚 文档: https://github.com/DuanZGit/oopsclaw"

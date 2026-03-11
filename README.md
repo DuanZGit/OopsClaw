@@ -20,7 +20,7 @@
                   │
                   ▼
 ┌─────────────────────────────────────────────────────────┐
-│                守护者核心 (guardian-event.sh)            │
+│                守护者核心 (oopsclaw-event.sh)            │
 │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐    │
 │  │  故障诊断   │→ │  根因分析   │→ │  自动修复   │    │
 │  └─────────────┘  └─────────────┘  └─────────────┘    │
@@ -36,7 +36,7 @@
                   │
                   ▼
 ┌─────────────────────────────────────────────────────────┐
-│              进化优化层 (guardian-evolve.sh)            │
+│              进化优化层 (oopsclaw-evolve.sh)            │
 │  评估修复效果 → 优化 Prompt → 自我进化                 │
 └─────────────────────────────────────────────────────────┘
 ```
@@ -45,15 +45,15 @@
 
 ```
 .oopsclaw/
-├── guardian-event.sh      # 事件驱动修复脚本 (核心)
-├── guardian-evolve.sh    # 自主进化优化脚本
+├── oopsclaw-event.sh      # 事件驱动修复脚本 (核心)
+├── oopsclaw-evolve.sh    # 自主进化优化脚本
 ├── monitor.sh            # 定时监控脚本
 ├── ai-evolve.sh          # AI 进化脚本
 ├── install.sh            # 一键安装脚本
 ├── openclaw-gateway.service  # Gateway 服务配置
-├── guardian-event.service    # 故障修复服务
-├── guardian-monitor.service # 定时监控服务
-├── guardian-monitor.timer    # 定时器
+├── oopsclaw-event.service    # 故障修复服务
+├── oopsclaw-monitor.service # 定时监控服务
+├── oopsclaw-monitor.timer    # 定时器
 └── knowledge/             # 知识库
     ├── base/
     │   ├── fingerprints.txt   # 故障指纹库
@@ -81,49 +81,49 @@ bash ~/.oopsclaw/install.sh
 ```bash
 # 1. 复制服务配置
 cp openclaw-gateway.service ~/.config/systemd/user/
-cp guardian-event.service ~/.config/systemd/user/
-cp guardian-monitor.service ~/.config/systemd/user/
-cp guardian-monitor.timer ~/.config/systemd/user/
+cp oopsclaw-event.service ~/.config/systemd/user/
+cp oopsclaw-monitor.service ~/.config/systemd/user/
+cp oopsclaw-monitor.timer ~/.config/systemd/user/
 
 # 2. 重新加载 systemd
 systemctl --user daemon-reload
 
 # 3. 启用服务
 systemctl --user enable --now openclaw-gateway.service
-systemctl --user enable --now guardian-monitor.timer
+systemctl --user enable --now oopsclaw-monitor.timer
 ```
 
 ### 手动运行
 
 ```bash
 # 事件驱动模式 (Gateway 故障时自动触发)
-bash ~/.oopsclaw/guardian-event.sh
+bash ~/.oopsclaw/oopsclaw-event.sh
 
 # 定时监控模式
 bash ~/.oopsclaw/monitor.sh
 
 # 进化优化 (评估并优化 Agent)
-bash ~/.oopsclaw/guardian-evolve.sh
+bash ~/.oopsclaw/oopsclaw-evolve.sh
 ```
 
 ### 查看日志
 
 ```bash
 # 守护者事件日志
-journalctl --user -u guardian-event.service -f
+journalctl --user -u oopsclaw-event.service -f
 
 # 或查看脚本内日志
-tail -f ~/.oopsclaw/logs/guardian-event.log
+tail -f ~/.oopsclaw/logs/oopsclaw-event.log
 ```
 
 ## 🤖 Agent Prompt
 
 守护者使用专门的 Agent Prompt 进行故障分析：
 
-- **guardian**: 故障诊断与修复专家
-- **guardian-evolve**: 进化优化评估专家
+- **oopsclaw**: 故障诊断与修复专家
+- **oopsclaw-evolve**: 进化优化评估专家
 
-详见 `~/.iflow/agents/guardian.md`
+详见 `~/.iflow/agents/oopsclaw.md`
 
 ## 📊 评分体系
 
@@ -137,9 +137,9 @@ tail -f ~/.oopsclaw/logs/guardian-event.log
 ## 🔄 进化流程
 
 1. **检测**: systemd OnFailure 触发故障检测
-2. **修复**: iFlow guardian-agent 执行修复
+2. **修复**: iFlow oopsclaw-agent 执行修复
 3. **评估**: 记录修复结果和时间
-4. **进化**: guardian-evolve-agent 评估并优化
+4. **进化**: oopsclaw-evolve-agent 评估并优化
 5. **学习**: 更新知识库和 Prompt
 
 ## 📝 许可证

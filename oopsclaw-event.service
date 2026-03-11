@@ -1,10 +1,10 @@
 [Unit]
-Description=Guardian Event - OpenClaw故障自动修复
+Description=Oopsclaw Event - OpenClaw故障自动修复
 After=network-online.target
 
 [Service]
 Type=oneshot
-ExecStart=/bin/bash /home/duanz/.oopsclaw/guardian-event.sh
+ExecStart=/bin/bash /home/duanz/.oopsclaw/oopsclaw-event.sh
 StandardOutput=journal
 StandardError=journal
 
